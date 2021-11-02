@@ -5,6 +5,7 @@ const Car = (props) => (
         <h3>Car name: {props.name}</h3>
         <p>Year: {props.year}</p>
         {/* {props.children} */}
+        <button onClick={props.onChangeTitle}>Click</button>
     </div>
 )
 

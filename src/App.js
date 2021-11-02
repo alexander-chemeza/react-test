@@ -12,26 +12,36 @@ class App extends Component {
     pageTitle: 'Cars'
   }
 
-  changeTitleHandler = () => {
-    let oldTitle = this.state.pageTitle
-    const newTitle = oldTitle + ' changed'
+  changeTitleHandler = (newTitle) => {
     this.setState({
       pageTitle: newTitle
     })
   }
 
 
+  handleInput = (event) => {
+    this.setState({
+      pageTitle: event.target.value 
+    })
+  }
+  
   render() {
     console.log('Render...')
     const cars = this.state.cars;
-    const carsList = cars.map((car, key) => (
-      <Car name={car.name} year={car.year} key={key}/>
+    const carsList = cars.map((car, index) => (
+      <Car 
+        name={car.name} 
+        year={car.year} 
+        key={index}
+        onChangeTitle={this.changeTitleHandler.bind(this, car.name)}
+      />
     ))
 
     return (
       <div className="App">
         <h1>{this.state.pageTitle}</h1>
-        <button onClick={this.changeTitleHandler}>Change title</button>
+        <input type="text" onChange={this.handleInput}/>
+        <button onClick={this.changeTitleHandler.bind(this, this.state.pageTitle + ' changed')}>Change title</button>
         {carsList}
       </div>
     );
