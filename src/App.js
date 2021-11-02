@@ -9,7 +9,8 @@ class App extends Component {
       {name: 'Mazda', year: 2017},
       {name: 'Audi', year: 2016},
     ],
-    pageTitle: 'Cars'
+    pageTitle: 'Cars',
+    showCars: false
   }
 
   changeTitleHandler = (newTitle) => {
@@ -22,6 +23,12 @@ class App extends Component {
   handleInput = (event) => {
     this.setState({
       pageTitle: event.target.value 
+    })
+  }
+
+  toggleCarsBtnHandler = () => {
+    this.setState({
+      showCars: !this.state.showCars
     })
   }
   
@@ -42,7 +49,8 @@ class App extends Component {
         <h1>{this.state.pageTitle}</h1>
         <input type="text" onChange={this.handleInput}/>
         <button onClick={this.changeTitleHandler.bind(this, this.state.pageTitle + ' changed')}>Change title</button>
-        {carsList}
+        <button onClick={this.toggleCarsBtnHandler}>Toggle</button>
+        {this.state.showCars ? carsList : <p>List is empty</p>}
       </div>
     );
   }
