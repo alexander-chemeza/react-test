@@ -31,6 +31,20 @@ class App extends Component {
       showCars: !this.state.showCars
     })
   }
+
+  onChangeName (name, index) {
+    const car = this.state.cars[index];
+    car.name = name
+    const cars = [...this.state.cars]
+    cars[index] = car
+    this.setState({cars})
+  }
+
+  onDeleteItem(index) {
+    const cars = this.state.cars
+    cars.splice(index,  1)
+    this.setState({cars})
+  }
   
   render() {
     console.log('Render...')
@@ -40,16 +54,19 @@ class App extends Component {
         name={car.name} 
         year={car.year} 
         key={index}
-        onChangeTitle={this.changeTitleHandler.bind(this, car.name)}
+        // onChangeTitle={this.changeTitleHandler.bind(this, car.name)}
+        onChangeName={(event) => this.onChangeName(event.target.value, index)}
+        onDelete={this.onDeleteItem.bind(this, index)}
       />
     ))
 
     return (
       <div className="App">
         <h1>{this.state.pageTitle}</h1>
-        <input type="text" onChange={this.handleInput}/>
-        <button onClick={this.changeTitleHandler.bind(this, this.state.pageTitle + ' changed')}>Change title</button>
-        <button onClick={this.toggleCarsBtnHandler}>Toggle</button>
+        {/* <input type="text" onChange={this.handleInput}/> */}
+        {/* <button onClick={this.changeTitleHandler.bind(this, this.state.pageTitle + ' changed')}>Change title</button> */}
+        <button style={{display: 'inline-block'}} onClick={this.toggleCarsBtnHandler}>Toggle</button>
+        <br/>
         {this.state.showCars ? carsList : <p>List is empty</p>}
       </div>
     );
